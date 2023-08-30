@@ -1,7 +1,22 @@
+#include <bitset>
+#include <iostream>
 #include "test_framework/generic_test.h"
+
+template <typename T>
+void printBitRepresentation(T num) {
+    std::bitset<sizeof(T) * 8> bits(num);
+    std::cout << bits << std::endl;
+}
+
 short Parity(unsigned long long x) {
-  // TODO - you fill in here.
-  return 0;
+  printBitRepresentation(x);
+
+  short parity = 0;
+  while (x) {
+    parity ^= (x & 1);
+    x >>= 1;
+  }
+  return parity;
 }
 
 int main(int argc, char* argv[]) {
