@@ -11,12 +11,14 @@ void printBitRepresentation(T num) {
 short Parity(unsigned long long x) {
   printBitRepresentation(x);
 
-  short parity = 0;
+  short result = 0;
   while (x) {
-    parity ^= (x & 1);
-    x >>= 1;
+    x = x & (x-1); // remove least significant 1
+    result ^= 1; // toggle 0/1
+    // std::cout << "result: " << result << std::endl;
+    // printBitRepresentation(x);
   }
-  return parity;
+  return result;
 }
 
 int main(int argc, char* argv[]) {
