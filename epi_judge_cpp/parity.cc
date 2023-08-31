@@ -38,6 +38,16 @@ short ParityLUT(unsigned long long x) {
   return result % 2;
 }
 
+short ParityLogN(unsigned long long x) {
+  x ^= x >> 32;
+  x ^= x >> 16;
+  x ^= x >> 8;
+  x ^= x >> 4;
+  x ^= x >> 2;
+  x ^= x >> 1; 
+  return x & 1;
+}
+
 int main(int argc, char* argv[]) {
   for(auto i = 0; i < lut.size(); i++) {
     lut[i] = Parity(i); // initialize lookup table
@@ -45,5 +55,5 @@ int main(int argc, char* argv[]) {
 
   std::vector<std::string> args{argv + 1, argv + argc};
   std::vector<std::string> param_names{"x"};
-  return GenericTestMain(args, "parity.cc", "parity.tsv", &ParityLUT, DefaultComparator{}, param_names);
+  return GenericTestMain(args, "parity.cc", "parity.tsv", &ParityLogN, DefaultComparator{}, param_names);
 }
